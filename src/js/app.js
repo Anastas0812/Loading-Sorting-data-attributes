@@ -1,15 +1,5 @@
 import { NewFilm } from "./data/data";
 
-// TODO: write code here
-
-// comment this to pass build
-const unusedVariable = "variable";
-
-// for demonstration purpose only
-export default function demo(value) {
-  return `Demo: ${value}`;
-}
-
 console.log("app.js included");
 
 const incomingData = [
@@ -45,10 +35,36 @@ const incomingData = [
   }
 ];
 
-let currentSortState = 0;
+function createTable() {
+  const container = document.getElementById('table-container');
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
 
+  const headers = ['id', 'title', 'year', 'imdb'];
+  headers.forEach(headerText => {
+    const th = document.createElement('th');
+    th.textContent = headerText;
+    headerRow.append(th);
+  });
+
+  thead.append(headerRow);
+  table.append(thead);
+
+  const tbody = document.createElement('tbody');
+  table.append(thead, tbody)
+  container.append(table);
+  return tbody;
+}
+
+let currentSortState = 0;
 function sortFilms() {
   const tableBody = document.querySelector('tbody');
+  if (!tableBody) {
+    console.error('tbody not found');
+    return;
+  }
+  
   const rows = Array.from(tableBody.querySelectorAll('tr'));
 
   rows.forEach(row => row.remove());
@@ -79,10 +95,9 @@ function sortFilms() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tableBody = document.querySelector('tbody');
-  const filmCreate = new NewFilm(tableBody);
+  const tBody = createTable();
+  const filmCreate = new NewFilm(tBody);
 
   incomingData.forEach(film => filmCreate.addNewFilm(film));
-
   setInterval(sortFilms, 2000);
 })

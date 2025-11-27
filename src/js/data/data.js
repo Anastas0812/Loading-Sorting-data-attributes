@@ -23,12 +23,12 @@ export class NewFilm {
     const yearBlock = document.createElement('td');
     yearBlock.textContent = filmData.year;
 
-    row.appendChild(idBlock);
-    row.appendChild(titleBlock);
-    row.appendChild(yearBlock);
-    row.appendChild(imdbBlock);
+    row.append(idBlock);
+    row.append(titleBlock);
+    row.append(yearBlock);
+    row.append(imdbBlock);
     
 
-    this._element.appendChild(row);
+    this._element.append(row);
   }
 }
